@@ -18,6 +18,13 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 
 RUN python -m pip install --upgrade pip
+
+# CPU-only PyTorch
+RUN pip install --no-cache-dir \
+    --index-url https://download.pytorch.org/whl/cpu \
+    torch torchvision
+
+# Remaining dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
